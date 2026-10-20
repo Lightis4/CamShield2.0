@@ -1,0 +1,279 @@
+    
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101114">
+    <title>CamShield | Central de Segurança</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">◈</div>
+                <div>
+                    <strong>CAMSHIELD</strong>
+                    <small>SECURITY SYSTEM</small>
+                </div>
+            </div>
+
+            <div class="sidebar-label">CENTRAL DE CONTROLE</div>
+
+            <nav class="navigation">
+                <button class="nav-item active" data-page="dashboard">
+                    <span>▦</span> Visão geral
+                </button>
+                <button class="nav-item" data-page="monitor">
+                    <span>▣</span> Monitoramento
+                </button>
+                <button class="nav-item" data-page="devices">
+                    <span>▤</span> Dispositivos
+                </button>
+                <button class="nav-item" data-page="checklist">
+                    <span>✓</span> Checklist
+                </button>
+                <button class="nav-item" data-page="reports">
+                    <span>▧</span> Relatórios
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="demo-indicator">
+                    <span class="indicator"></span>
+                    MODO DEMONSTRAÇÃO
+                </div>
+                <p>CamShield MVP · v2.0</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <div class="breadcrumb">CAMSHIELD / <span id="breadcrumb">VISÃO GERAL</span></div>
+                    <h1 id="pageTitle">Visão geral</h1>
+                    <p id="pageSubtitle">Central de segurança de dispositivos inteligentes</p>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="clock" id="clock">--:--:--</div>
+                    <select id="profileSelect" aria-label="Perfil do sistema">
+                        <option value="home">Residencial</option>
+                        <option value="business">Pequeno negócio</option>
+                        <option value="installer">Instalador</option>
+                        <option value="it">Profissional de TI</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="demo-banner">
+                <span>ⓘ</span>
+                AMBIENTE DEMONSTRATIVO — Sem conexão com câmeras reais ou análises automáticas.
+            </div>
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">CENTRAL DE OPERAÇÕES</span>
+                        <h2 id="welcomeTitle">Painel residencial</h2>
+                        <p id="welcomeText"></p>
+                    </div>
+                    <button class="btn btn-primary" data-go="devices">
+                        + Novo dispositivo
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <span>DISPOSITIVOS CADASTRADOS</span>
+                        <strong id="statDevices">0</strong>
+                        <small>Inventário local</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>CHECKLISTS SALVOS</span>
+                        <strong id="statChecks">0</strong>
+                        <small>Verificações manuais</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>CÂMERAS CADASTRADAS</span>
+                        <strong id="statCameras">0</strong>
+                        <small>Sem conexão de vídeo</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>RECOMENDAÇÕES</span>
+                        <strong id="statTips">4</strong>
+                        <small>Boas práticas gerais</small>
+                    </article>
+                </div>
+
+                <div class="content-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">VISUALIZAÇÃO</span>
+                                <h3>Prévia dos canais</h3>
+                            </div>
+                            <button class="text-button" data-go="monitor">Ver central →</button>
+                        </div>
+                        <div class="camera-grid compact" id="dashboardCameras"></div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">ORIENTAÇÕES</span>
+                                <h3>Boas práticas</h3>
+                            </div>
+                        </div>
+                        <div id="tipsList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MONITORAMENTO -->
+            <section id="monitor" class="page">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">CFTV / VISUALIZAÇÃO</span>
+                        <h2>Central de monitoramento</h2>
+                        <p>Representação visual dos canais de câmeras cadastradas.</p>
+                    </div>
+                    <span class="outline-tag">SEM TRANSMISSÃO REAL</span>
+                </div>
+
+                <div class="monitor-toolbar">
+                    <span>▦ VISUALIZAÇÃO EM GRADE</span>
+                    <span id="monitorCount">0 CÂMERAS CADASTRADAS</span>
+                </div>
+
+                <div class="camera-grid monitor-grid" id="monitorCameras"></div>
+
+                <div class="panel monitor-notice">
+                    <strong>Sobre este painel</strong>
+                    <p>As telas são ilustrativas. Nenhuma imagem, áudio ou transmissão de câmera é capturada pelo CamShield.</p>
+                </div>
+            </section>
+
+            <!-- DISPOSITIVOS -->
+            <section id="devices" class="page">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">INVENTÁRIO</span>
+                        <h2>Dispositivos</h2>
+                        <p>Cadastre e organize seus equipamentos.</p>
+                    </div>
+                    <button id="openModal" class="btn btn-primary">+ Adicionar dispositivo</button>
+                </div>
+
+                <div class="panel">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>EQUIPAMENTO</th>
+                                    <th>TIPO</th>
+                                    <th>FABRICANTE</th>
+                                    <th>FIRMWARE INFORMADO</th>
+                                    <th>AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deviceTable"></tbody>
+                        </table>
+                    </div>
+                    <p id="emptyDevices" class="empty-message">Nenhum dispositivo cadastrado.</p>
+                </div>
+            </section>
+
+            <!-- CHECKLIST -->
+            <section id="checklist" class="page">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">AVALIAÇÃO MANUAL</span>
+                        <h2>Checklist de segurança</h2>
+                        <p>Registre verificações feitas manualmente.</p>
+                    </div>
+                </div>
+
+                <div class="panel form-panel">
+                    <label for="checkDevice">DISPOSITIVO</label>
+                    <select id="checkDevice"></select>
+
+                    <div id="checklistItems" class="checklist-items"></div>
+
+                    <button id="saveChecklist" class="btn btn-primary">Salvar checklist</button>
+                    <p id="checkMessage" class="feedback" role="status"></p>
+                </div>
+            </section>
+
+            <!-- RELATÓRIOS -->
+            <section id="reports" class="page">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">DOCUMENTAÇÃO</span>
+                        <h2>Relatórios</h2>
+                        <p>Gere um registro das informações preenchidas.</p>
+                    </div>
+                </div>
+
+                <div class="panel form-panel">
+                    <label for="reportDevice">SELECIONE O EQUIPAMENTO</label>
+                    <select id="reportDevice"></select>
+
+                    <div class="report-sheet" id="reportContent"></div>
+
+                    <button id="printReport" class="btn btn-primary">
+                        Imprimir / Salvar PDF
+                    </button>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <span>© 2026 CAMSHIELD · PROTÓTIPO DEMONSTRATIVO</span>
+                <span>SECURITY STARTS WITH AWARENESS</span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- MODAL DE CADASTRO -->
+    <dialog id="deviceModal">
+        <form id="deviceForm">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">INVENTÁRIO</span>
+                    <h2>Novo dispositivo</h2>
+                </div>
+                <button type="button" id="closeModal" class="close-btn" aria-label="Fechar">×</button>
+            </div>
+
+            <label for="deviceName">NOME DO EQUIPAMENTO</label>
+            <input id="deviceName" maxlength="60" required placeholder="Ex.: Câmera da garagem">
+
+            <label for="deviceType">TIPO DE DISPOSITIVO</label>
+            <select id="deviceType">
+                <option value="camera">Câmera de segurança</option>
+                <option value="router">Roteador</option>
+                <option value="lock">Fechadura inteligente</option>
+                <option value="tv">Smart TV</option>
+                <option value="other">Outro dispositivo IoT</option>
+            </select>
+
+            <label for="deviceBrand">FABRICANTE</label>
+            <input id="deviceBrand" maxlength="60" required placeholder="Ex.: Fabricante X">
+
+            <label for="deviceFirmware">VERSÃO DO FIRMWARE (OPCIONAL)</label>
+            <input id="deviceFirmware" maxlength="60" placeholder="Informação preenchida manualmente">
+
+            <div class="modal-actions">
+                <button type="button" id="cancelModal" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
